@@ -1,4 +1,10 @@
-import React, { HTMLAttributes, ReactNode, useContext, useState } from "react";
+import React, {
+  HTMLAttributes,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
@@ -27,6 +33,7 @@ export function DropDown({
   const [isOpen, setIsOpen] = useState(false);
 
   const ref = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -38,6 +45,16 @@ export function DropDown({
 
   useOnClickOutside(ref, handleClickOutside);
 
+  useEffect(() => {
+    if (isOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      if (rect.right + rect.width / 2 > viewportWidth) {
+        dropdownRef.current.style.left = `${-rect.width / 2}px`;
+      }
+    }
+  }, [isOpen]);
+
   return (
     <IsOpenContext.Provider
       value={(v) => {
@@ -48,7 +65,10 @@ export function DropDown({
         <button onClick={handleClickInside}>{toggle}</button>
 
         {isOpen && (
-          <div className="absolute top-14 left-0 bg-white rounded text-black p-4 shadow-sm shadow-gray-300">
+          <div
+            ref={dropdownRef}
+            className="border absolute top-14 bg-white rounded text-black p-4 shadow-sm shadow-gray-300"
+          >
             {children}
           </div>
         )}
