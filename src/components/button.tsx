@@ -10,7 +10,7 @@ export function Button({
   return (
     <button
       className={twMerge(
-        "bg-cyan-500 px-4 py-2 rounded hover:bg-cyan-600 disabled:bg-gray-400 disabled:text-gray-600",
+        "bg-cyan-600 px-4 py-2 text-white rounded hover:bg-cyan-700 disabled:bg-gray-400 disabled:text-gray-600",
         className
       )}
       {...props}
