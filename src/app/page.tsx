@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/card";
 import { Navbar } from "@/components/navbar";
+import { ToolTip } from "@/components/tool-tip";
 
 const items = [
   {
@@ -63,6 +64,7 @@ export default function Home() {
                 <CardBody>
                   {item.description}
                   <br />${item.cost}
+                  <ToolTip>Allergy info: contains Dairy and Eggs</ToolTip>
                 </CardBody>
               </CardContent>
               <CardActions>
